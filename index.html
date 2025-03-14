@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victor Massia - Portfólio</title>
+    <link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --background-color: #f3f3f3;
+            --color: #000;
+            --dark-background-color: #121212;
+            --dark-color: #ffffff;
+            --transition-duration: 0.5s;
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --accent-color: #ff4081;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background-color var(--transition-duration), color var(--transition-duration);
+        }
+
+        .dark-mode {
+            background-color: var(--dark-background-color);
+            color: var(--dark-color);
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: -1;
+        }
+
+        .name {
+            font-size: 3em;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            opacity: 0;
+            animation: appear 1s forwards;
+        }
+
+        @keyframes appear {
+            to { opacity: 1; }
+        }
+
+        .description {
+            font-size: 1.5em;
+            color: #555;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+            animation-delay: 5s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        #timeline-embed {
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
+        }
+
+        .scroll-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+
+        .resume-button-container {
+            margin-top: 20px;
+        }
+
+        .resume-button {
+            position: relative;
+            padding: 15px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            overflow: hidden;
+            transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+        }
+
+        .resume-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s;
+        }
+
+        .resume-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .resume-button:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .terminal {
+            width: 80%;
+            max-width: 800px;
+            height: 400px;
+            background-color: #000;
+            color: #0f0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .terminal-input {
+            width: 100%;
+            border: none;
+            background: none;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1em;
+            outline: none;
+        }
+
+        .terminal-content {
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .code-section {
+            width: 80%;
+            max-width: 800px;
+            background-color: #282c34;
+            color: #61dafb;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            overflow: hidden;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color var(--transition-duration), transform var(--transition-duration);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .project-card h3 {
+            margin: 15px;
+            font-size: 1.2em;
+        }
+
+        .project-card p {
+            margin: 0 15px 15px;
+            color: #555;
+        }
+
+        .game-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .game-canvas {
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            background-color: #000;
+        }
+
+        .testimonials-section {
+            background-color: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .testimonial {
+            margin: 15px 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .contact-section {
+            background-color: #c8e6c9;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 80%;
+            max-width: 600px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid var(--primary-color);
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color var(--transition-duration);
+        }
+
+        .contact-form button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-text {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            animation: changeText 5s linear infinite;
+        }
+
+        @keyframes changeText {
+            0%, 20% { content: "Olá"; }
+            20%, 40% { content: "Hello"; }
+            40%, 60% { content: "Hola"; }
+            60%, 80% { content: "Bonjour"; }
+            80%, 100% { content: "Hallo"; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay">
+        <div class="loading-text">Olá</div>
+    </div>
+    <button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+    <div class="scroll-container" style="display: none;">
+        <section class="section" style="background-color: #f3f3f3;">
+            <div class="name">Victor Massia</div>
+            <div class="description">Estudante de Sistemas de Informação</div>
+        </section>
+        <section class="section" style="background-color: #e3f2fd;">
+            <div id="timeline-embed"></div>
+        </section>
+        <section class="section" style="background-color: #d1c4e9;">
+            <div class="terminal">
+                <div class="terminal-content" id="terminal-content">
+                    <div>Bem-vindo ao terminal de Victor Massia. Digite 'help' para ver os comandos disponíveis.</div>
+                </div>
+                <input type="text" class="terminal-input" id="terminal-input" onkeydown="handleInput(event)">
+            </div>
+        </section>
+        <section class="section" style="background-color: #c8e6c9;">
+            <div class="code-section" id="code-section"></div>
+        </section>
+        <section class="section" style="background-color: #fff3e0;">
+            <h2>Projetos</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/300" alt="Projeto 1">
+                    <h3>Projeto 1</h3>
+                    <p>Descrição do Projeto 1.</p>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/300" alt="Projeto 2">
+                    <h3>Projeto 2</h3>
+                    <p>Descrição do Projeto 2.</p>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/300" alt="Projeto 3">
+                    <h3>Projeto 3</h3>
+                    <p>Descrição do Projeto 3.</p>
+                </div>
+            </div>
+        </section>
+        <section class="section game-section" style="background-color: #ffccbc;">
+            <h2>Jogo Simples</h2>
+            <canvas class="game-canvas" id="gameCanvas" width="600" height="400"></canvas>
+        </section>
+        <section class="section testimonials-section">
+            <h2>Depoimentos</h2>
+            <div class="testimonial">"Victor é um estudante dedicado e sempre busca aprender mais!" - Professor A</div>
+            <div class="testimonial">"Trabalhar com Victor foi uma experiência incrível!" - Colega B</div>
+            <div class="testimonial">"Ele tem um grande potencial na área de TI." - Mentor C</div>
+        </section>
+        <section class="section contact-section">
+            <h2>Contato</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Seu Nome" required>
+                <input type="email" placeholder="Seu Email" required>
+                <textarea placeholder="Sua Mensagem" rows="4" required></textarea>
+                <button type="submit">Enviar Mensagem</button>
+            </form>
+            <div class="resume-button-container">
+                <a href="curriculo_victor.pdf" download class="resume-button" aria-label="Download Resume"><i class="fas fa-download"></i> Baixar Currículo</a>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const timeline_json = {
+                "title": {
+                    "media": {
+                        "url": "",
+                        "caption": "",
+                        "credit": ""
+                    },
+                    "text": {
+                        "headline": "Linha do Tempo da Carreira de Victor Massia",
+                        "text": "<p>Minha jornada no mundo da TI.</p>"
+                    }
+                },
+                "events": [
+                    {
+                        "media": {
+                            "url": "",
+                            "caption": "",
+                            "credit": ""
+                        },
+                        "start_date": {
+                            "year": "2024",
+                            "month": "8"
+                        },
+                        "text": {
+                            "headline": "Início da Faculdade",
+                            "text": "<p>Comecei a faculdade de Sistemas de Informação.</p>"
+                        }
+                    },
+                    {
+                        "media": {
+                            "url": "",
+                            "caption": "",
+                            "credit": ""
+                        },
+                        "start_date": {
+                            "year": "2025",
+                            "month": "1"
+                        },
+                        "text": {
+                            "headline": "Início do Segundo Período da Faculdade",
+                            "text": "<p>Comecei o segundo período da faculdade de Sistemas de Informação.</p>"
+                        }
+                    },
+                    {
+                        "media": {
+                            "url": "",
+                            "caption": "",
+                            "credit": ""
+                        },
+                        "start_date": {
+                            "year": "2025",
+                            "month": "2"
+                        },
+                        "text": {
+                            "headline": "Analista de Suporte de TI",
+                            "text": "<p>Comecei a trabalhar como Analista de Suporte de TI no grupo Sabemi.</p>"
+                        }
+                    }
+                ]
+            };
+
+            window.timeline = new TL.Timeline('timeline-embed', timeline_json);
+
+            const terminalInput = document.getElementById('terminal-input');
+            const terminalContent = document.getElementById('terminal-content');
+
+            terminalInput.addEventListener('keydown', handleInput);
+
+            function handleInput(event) {
+                if (event.key === "Enter") {
+                    const input = event.target.value;
+                    let response = "";
+
+                    switch (input.toLowerCase()) {
+                        case 'help':
+                            response = "Comandos disponíveis: help, about, skills, clear, projects";
+                            break;
+                        case 'about':
+                            response = "Victor Massia é um estudante de Sistemas de Informação e Analista de Suporte de TI.";
+                            break;
+                        case 'skills':
+                            response = "Habilidades: Python, React.js, HTML, JavaScript, CSS, Banco de dados, MySQL, SQL, Suporte técnico, Tecnologia da informação, Rede de computadores.";
+                            break;
+                        case 'projects':
+                            response = "Projetos: <a href='#'>Projeto 1</a>, <a href='#'>Projeto 2</a>";
+                            break;
+                        case 'clear':
+                            terminalContent.innerHTML = "";
+                            response = "Terminal limpo.";
+                            break;
+                        default:
+                            response = `Comando não reconhecido: ${input}`;
+                    }
+
+                    terminalContent.innerHTML += `<div>> ${input}</div><div>${response}</div>`;
+                    event.target.value = "";
+                    terminalContent.scrollTop = terminalContent.scrollHeight;
+                }
+            }
+
+            const code = `
+            // Exemplo de código em JavaScript
+            function helloWorld() {
+                console.log("Olá, mundo!");
+            }
+            
+            helloWorld();
+
+            // Exemplo de código em Python
+            def hello_world():
+                print("Olá, mundo!")
+            
+            hello_world()
+            `;
+
+            let index = 0;
+            function typeCode() {
+                if (index < code.length) {
+                    document.getElementById('code-section').innerHTML += code.charAt(index);
+                    index++;
+                    requestAnimationFrame(typeCode);
+                }
+            }
+
+            function toggleTheme() {
+                document.body.classList.toggle('dark-mode');
+            }
+
+            function checkVisibility() {
+                const skills = document.querySelectorAll('.skill');
+                skills.forEach(skill => {
+                    const rect = skill.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                        skill.classList.add('visible');
+                    }
+                });
+            }
+
+            // Jogo Simples
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+
+            let x = canvas.width / 2;
+            let y = canvas.height - 30;
+            let dx = 2;
+            let dy = -2;
+            const ballRadius = 10;
+
+            function drawBall() {
+                ctx.beginPath();
+                ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+                ctx.fillStyle = '#0f0';
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawBall();
+
+                if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+                    dx = -dx;
+                }
+                if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+                    dy = -dy;
+                }
+
+                x += dx;
+                y += dy;
+                requestAnimationFrame(draw);
+            }
+
+            draw();
+            
+            function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
+
+    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+    }
+    if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+        dy = -dy;
+    }
+
+    x += dx;
+    y += dy;
+    requestAnimationFrame(draw);
+}
+
+draw();
+
+window.addEventListener('load', () => {
+    // Show the loading overlay for 5 seconds
+    setTimeout(() => {
+        document.querySelector('.loading-overlay').style.display = 'none';
+        document.querySelector('.scroll-container').style.display = 'block';
+    }, 5000);
+
+    typeCode();
+    checkVisibility();
+});
+
+window.addEventListener('scroll', checkVisibility);
+});
+</script>
+</body>
+</html>
