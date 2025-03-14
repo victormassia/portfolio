@@ -17,6 +17,11 @@
         </label>
     </div>
 
+    <!-- Botão de alternância do terminal -->
+    <button id="toggle-terminal" class="toggle-terminal">
+        <i class="fas fa-terminal"></i> Terminal
+    </button>
+
     <!-- Animação de saudações -->
     <div id="greeting">Olá</div>
     <div id="main-content" class="scroll-container" style="display: none;">
@@ -39,7 +44,6 @@
                     
                     Sou movido pela curiosidade e pela vontade de aprender. Meu foco é crescer profissionalmente, explorando novas tecnologias e contribuindo para projetos inovadores. 
                 </p>
-            
             </div>
         </section>
 
@@ -47,24 +51,6 @@
         <section class="section timeline-section">
             <h2>Linha do Tempo</h2>
             <div id="timeline-embed" style="width: 100%; height: 600px;"></div>
-        </section>
-
-        <!-- Seção do terminal -->
-        <section class="section" style="background-color: #d1c4e9;">
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="buttons">
-                        <div class="button"></div>
-                        <div class="button"></div>
-                        <div class="button"></div>
-                    </div>
-                    <div class="title">Terminal</div>
-                </div>
-                <div class="terminal-content" id="terminal-content">
-                    <div>Bem-vindo ao terminal de Victor Massia. Digite 'help' para ver os comandos disponíveis.</div>
-                </div>
-                <input type="text" class="terminal-input" id="terminal-input" onkeydown="handleInput(event)">
-            </div>
         </section>
 
         <!-- Seção de rodapé -->
@@ -76,6 +62,25 @@
             </div>
             <a href="curriculo.pdf" class="resume-button" download>Baixar Currículo</a>
         </section>
+    </div>
+
+    <!-- Seção do terminal -->
+    <div id="terminal-overlay" class="terminal-overlay">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="buttons">
+                    <div class="button"></div>
+                    <div class="button"></div>
+                    <div class="button"></div>
+                </div>
+                <div class="title">Terminal</div>
+                <button id="close-terminal" class="close-terminal">X</button>
+            </div>
+            <div class="terminal-content" id="terminal-content">
+                <div>Bem-vindo ao terminal de Victor Massia. Digite 'help' para ver os comandos disponíveis.</div>
+            </div>
+            <input type="text" class="terminal-input" id="terminal-input" onkeydown="handleInput(event)">
+        </div>
     </div>
 
     <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>

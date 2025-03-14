@@ -21,6 +21,11 @@ body {
     transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
+body.blur {
+    filter: blur(5px);
+    transition: filter 0.3s;
+}
+
 .dark-mode {
     background-color: var(--dark-background-color);
     color: var(--dark-color);
@@ -97,6 +102,19 @@ body {
 }
 
 /* Estilos para a seção terminal */
+.terminal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
 .terminal {
     width: 80%;
     max-width: 800px;
@@ -131,6 +149,14 @@ body {
     height: 15px;
     border-radius: 50%;
     background-color: var(--terminal-border-color);
+}
+
+.close-terminal {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
 }
 
 .terminal-content {
@@ -230,7 +256,27 @@ body {
     transform: translateX(30px);
 }
 
-/* Restante dos seus estilos */
+/* Estilos para o botão de alternância do terminal */
+.toggle-terminal {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 1000;
+}
+
+.toggle-terminal:hover {
+    background-color: var(--accent-color);
+}
+
+/* Estilos adicionais */
 .section {
     height: 100vh;
     display: flex;
