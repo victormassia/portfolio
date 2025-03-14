@@ -1,4 +1,31 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Animação de saudações
+const greetings = ["Olá", "Hello", "Hola", "Bonjour", "Ciao", "Hallo", "こんにちは", "안녕하세요", "Привет", "مرحبا"];
+let index = 0;
+const greetingElement = document.getElementById("greeting");
+const mainContent = document.getElementById("main-content");
+
+function showGreeting() {
+    greetingElement.style.opacity = 0;
+    setTimeout(() => {
+        greetingElement.innerText = greetings[index];
+        greetingElement.style.opacity = 1;
+        index = (index + 1) % greetings.length;
+    }, 200);
+}
+
+function startAnimation() {
+    showGreeting();
+    const interval = setInterval(showGreeting, 300);
+    setTimeout(() => {
+        clearInterval(interval);
+        greetingElement.style.display = "none";
+        mainContent.style.display = "block";
+        initializePage(); // Inicializa o restante da página
+    }, greetings.length * 300);
+}
+
+function initializePage() {
+    // Inicializa a timeline
     const timeline_json = {
         "title": {
             "media": {
@@ -62,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.timeline = new TL.Timeline('timeline-embed', timeline_json);
 
+    // Inicializa o terminal
     const terminalInput = document.getElementById('terminal-input');
     const terminalContent = document.getElementById('terminal-content');
 
@@ -99,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Inicializa a digitação do código
     const code = `
     // Exemplo de código em JavaScript
     function helloWorld() {
@@ -114,19 +143,24 @@ document.addEventListener('DOMContentLoaded', () => {
     hello_world()
     `;
 
-    let index = 0;
+    let codeIndex = 0;
     function typeCode() {
-        if (index < code.length) {
-            document.getElementById('code-section').innerHTML += code.charAt(index);
-            index++;
+        if (codeIndex < code.length) {
+            document.getElementById('code-section').innerHTML += code.charAt(codeIndex);
+            codeIndex++;
             requestAnimationFrame(typeCode);
         }
     }
 
-    function toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-    }
+    typeCode();
 
+    // Alternar tema
+    const themeSwitch = document.getElementById('theme-switch');
+    themeSwitch.addEventListener('change', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+
+    // Verificar visibilidade dos elementos
     function checkVisibility() {
         const skills = document.querySelectorAll('.skill');
         skills.forEach(skill => {
@@ -137,10 +171,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    window.addEventListener('load', () => {
-        typeCode();
-        checkVisibility();
-    });
+    // Jogo Simples
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
 
+    let x = canvas.width / 2;
+    let y = canvas.height - 30;
+    let dx = 2;
+    let dy = -2;
+    const ballRadius = 10;
+
+    function drawBall() {
+        ctx.beginPath();
+        ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+        ctx.fillStyle = '#0f0';
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBall();
+
+        if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+            dx = -dx;
+        }
+        if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+            dy = -dy;
+        }
+
+        x += dx;
+        y += dy;
+        requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    // Evento de rolagem da página
     window.addEventListener('scroll', checkVisibility);
-});
+}
+
+// Inicia a animação de saudações ao carregar a página
+window.onload = startAnimation;

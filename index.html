@@ -6,175 +6,17 @@
     <title>Victor Massia - Portfólio</title>
     <link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        /* Estilos globais */
-        :root {
-            --background-color: #f3f3f3;
-            --color: #000;
-            --dark-background-color: #121212;
-            --dark-color: #ffffff;
-            --transition-duration: 0.5s;
-            --primary-color: #007bff;
-            --secondary-color: #6c757d;
-            --accent-color: #ff4081;
-            --terminal-bg-color: #000;
-            --terminal-text-color: #0f0;
-            --terminal-border-color: #00ff00;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            transition: background-color var(--transition-duration), color var(--transition-duration);
-        }
-
-        .dark-mode {
-            background-color: var(--dark-background-color);
-            color: var(--dark-color);
-        }
-
-        /* Estilos para a animação de saudações */
-        #greeting {
-            font-size: 2em;
-            opacity: 0;
-            transition: opacity 0.2s;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        #main-content {
-            display: none;
-        }
-
-        /* Estilos para a seção "Sobre Mim" */
-        .about-section {
-            background-color: #fff8e1;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .about-section h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-
-        .about-section p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            color: #555;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .about-section p i {
-            margin-right: 10px;
-            color: var(--primary-color);
-        }
-
-        /* Estilos para a seção terminal */
-        .terminal {
-            width: 80%;
-            max-width: 800px;
-            height: 400px;
-            background-color: var(--terminal-bg-color);
-            color: var(--terminal-text-color);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            font-family: 'Courier New', Courier, monospace;
-            overflow: hidden;
-            position: relative;
-            border: 2px solid var(--terminal-border-color);
-        }
-
-        .terminal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--terminal-bg-color);
-            padding: 5px 10px;
-            border-bottom: 2px solid var(--terminal-border-color);
-        }
-
-        .terminal-header .buttons {
-            display: flex;
-            gap: 5px;
-        }
-
-        .terminal-header .buttons .button {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background-color: var(--terminal-border-color);
-        }
-
-        .terminal-content {
-            height: calc(100% - 40px);
-            overflow-y: auto;
-            padding: 10px;
-        }
-
-        .terminal-input {
-            width: 100%;
-            border: none;
-            background: none;
-            color: var(--terminal-text-color);
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1em;
-            outline: none;
-        }
-
-        /* Restante dos seus estilos */
-        .section {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
-            position: relative;
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        .name {
-            font-size: 3em;
-            font-weight: bold;
-            font-family: 'Courier New', Courier, monospace;
-            overflow: hidden;
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: .15em;
-            opacity: 0;
-            animation: appear 1s forwards;
-        }
-
-        @keyframes appear {
-            to { opacity: 1; }
-        }
-
-        .description {
-            font-size: 1.5em;
-            color: #555;
-            opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
-            animation-delay: 5s;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        /* Restante dos seus estilos CSS */
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Botão de alternância de tema -->
+    <div class="theme-toggle">
+        <input type="checkbox" id="theme-switch" class="theme-switch">
+        <label for="theme-switch" class="theme-switch-label">
+            <span class="theme-switch-inner"></span>
+        </label>
+    </div>
+
     <!-- Animação de saudações -->
     <div id="greeting">Olá</div>
     <div id="main-content" class="scroll-container" style="display: none;">
@@ -186,25 +28,28 @@
 
         <!-- Seção "Sobre Mim" -->
         <section class="section about-section">
-            <h2>Sobre Mim</h2>
-            <p>
-                <i class="fas fa-rocket"></i> 🧑‍🚀 Entusiasta da tecnologia, focado em resolver problemas reais com soluções eficientes.
-            </p>
-            <p>
-                <i class="fas fa-graduation-cap"></i> 🧑🏻‍🎓 Estudante de Sistemas de Informação, explorando programação, dados e segurança da informação.
-            </p>
-            <p>
-                <i class="fas fa-laptop-code"></i> 👨🏻‍💻 Gosto de entender sistemas, otimizar processos e criar soluções funcionais.
-            </p>
-            <p>
-                <i class="fas fa-space-shuttle"></i> 🚀 Sempre buscando aprender e aplicar novos conhecimentos na prática.
-            </p>
+            <img src="images/eu.png" alt="Foto de Victor Massia">
+            <div>
+                <h2>Sobre Mim</h2>
+                <p>
+                    <i class=""></i> 🧑🏻‍💻 
+                    Sou um estudante de Sistemas de Informação de 21 anos, morador do Rio Grande do Sul, apaixonado por tecnologia e resolução de problemas. Atualmente, trabalho como Suporte Técnico, onde desenvolvo habilidades em troubleshooting, atendimento ao usuário e otimização de processos.
+                    
+                    Tenho grande interesse em programação, análise de dados e segurança da informação, sempre buscando aprimorar meus conhecimentos e aplicá-los na prática. Gosto de entender a fundo o funcionamento de sistemas, identificar oportunidades de melhoria e desenvolver soluções eficientes e funcionais.
+                    
+                    Sou movido pela curiosidade e pela vontade de aprender. Meu foco é crescer profissionalmente, explorando novas tecnologias e contribuindo para projetos inovadores. 
+                </p>
+            
+            </div>
         </section>
 
-        <!-- Restante das seções -->
-        <section class="section" style="background-color: #e3f2fd;">
-            <div id="timeline-embed"></div>
+        <!-- Seção da linha do tempo -->
+        <section class="section timeline-section">
+            <h2>Linha do Tempo</h2>
+            <div id="timeline-embed" style="width: 100%; height: 600px;"></div>
         </section>
+
+        <!-- Seção do terminal -->
         <section class="section" style="background-color: #d1c4e9;">
             <div class="terminal">
                 <div class="terminal-header">
@@ -221,225 +66,19 @@
                 <input type="text" class="terminal-input" id="terminal-input" onkeydown="handleInput(event)">
             </div>
         </section>
-        <!-- Restante das seções -->
+
+        <!-- Seção de rodapé -->
+        <section class="footer-section">
+            <h2>Conecte-se Comigo</h2>
+            <div class="social-buttons">
+                <a href="https://www.linkedin.com/in/victormassia" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/victormassia" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+            <a href="curriculo.pdf" class="resume-button" download>Baixar Currículo</a>
+        </section>
     </div>
 
     <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
-    <script>
-        // Animação de saudações
-        const greetings = ["Olá", "Hello", "Hola", "Bonjour", "Ciao", "Hallo", "こんにちは", "안녕하세요", "Привет", "مرحبا"];
-        let index = 0;
-        const greetingElement = document.getElementById("greeting");
-        const mainContent = document.getElementById("main-content");
-
-        function showGreeting() {
-            greetingElement.style.opacity = 0;
-            setTimeout(() => {
-                greetingElement.innerText = greetings[index];
-                greetingElement.style.opacity = 1;
-                index = (index + 1) % greetings.length;
-            }, 200);
-        }
-
-        function startAnimation() {
-            showGreeting();
-            const interval = setInterval(showGreeting, 300);
-            setTimeout(() => {
-                clearInterval(interval);
-                greetingElement.style.display = "none";
-                mainContent.style.display = "block";
-                initializePage(); // Inicializa o restante da página
-            }, greetings.length * 300);
-        }
-
-        function initializePage() {
-            // Inicializa a timeline
-            const timeline_json = {
-                "title": {
-                    "media": {
-                        "url": "",
-                        "caption": "",
-                        "credit": ""
-                    },
-                    "text": {
-                        "headline": "Linha do Tempo da Carreira de Victor Massia",
-                        "text": "<p>Minha jornada no mundo da TI.</p>"
-                    }
-                },
-                "events": [
-                    {
-                        "media": {
-                            "url": "",
-                            "caption": "",
-                            "credit": ""
-                        },
-                        "start_date": {
-                            "year": "2024",
-                            "month": "8"
-                        },
-                        "text": {
-                            "headline": "Início da Faculdade",
-                            "text": "<p>Comecei a faculdade de Sistemas de Informação.</p>"
-                        }
-                    },
-                    {
-                        "media": {
-                            "url": "",
-                            "caption": "",
-                            "credit": ""
-                        },
-                        "start_date": {
-                            "year": "2025",
-                            "month": "1"
-                        },
-                        "text": {
-                            "headline": "Início do Segundo Período da Faculdade",
-                            "text": "<p>Comecei o segundo período da faculdade de Sistemas de Informação.</p>"
-                        }
-                    },
-                    {
-                        "media": {
-                            "url": "",
-                            "caption": "",
-                            "credit": ""
-                        },
-                        "start_date": {
-                            "year": "2025",
-                            "month": "2"
-                        },
-                        "text": {
-                            "headline": "Analista de Suporte de TI",
-                            "text": "<p>Comecei a trabalhar como Analista de Suporte de TI no grupo Sabemi.</p>"
-                        }
-                    }
-                ]
-            };
-
-            window.timeline = new TL.Timeline('timeline-embed', timeline_json);
-
-            // Inicializa o terminal
-            const terminalInput = document.getElementById('terminal-input');
-            const terminalContent = document.getElementById('terminal-content');
-
-            terminalInput.addEventListener('keydown', handleInput);
-
-            function handleInput(event) {
-                if (event.key === "Enter") {
-                    const input = event.target.value;
-                    let response = "";
-
-                    switch (input.toLowerCase()) {
-                        case 'help':
-                            response = "Comandos disponíveis: help, about, skills, clear, projects";
-                            break;
-                        case 'about':
-                            response = "Victor Massia é um estudante de Sistemas de Informação e Analista de Suporte de TI.";
-                            break;
-                        case 'skills':
-                            response = "Habilidades: Python, React.js, HTML, JavaScript, CSS, Banco de dados, MySQL, SQL, Suporte técnico, Tecnologia da informação, Rede de computadores.";
-                            break;
-                        case 'projects':
-                            response = "Projetos: <a href='#'>Projeto 1</a>, <a href='#'>Projeto 2</a>";
-                            break;
-                        case 'clear':
-                            terminalContent.innerHTML = "";
-                            response = "Terminal limpo.";
-                            break;
-                        default:
-                            response = `Comando não reconhecido: ${input}`;
-                    }
-
-                    terminalContent.innerHTML += `<div>> ${input}</div><div>${response}</div>`;
-                    event.target.value = "";
-                    terminalContent.scrollTop = terminalContent.scrollHeight;
-                }
-            }
-
-            // Inicializa a digitação do código
-            const code = `
-            // Exemplo de código em JavaScript
-            function helloWorld() {
-                console.log("Olá, mundo!");
-            }
-            
-            helloWorld();
-
-            // Exemplo de código em Python
-            def hello_world():
-                print("Olá, mundo!")
-            
-            hello_world()
-            `;
-
-            let codeIndex = 0;
-            function typeCode() {
-                if (codeIndex < code.length) {
-                    document.getElementById('code-section').innerHTML += code.charAt(codeIndex);
-                    codeIndex++;
-                    requestAnimationFrame(typeCode);
-                }
-            }
-
-            typeCode();
-
-            // Alternar tema
-            function toggleTheme() {
-                document.body.classList.toggle('dark-mode');
-            }
-
-            // Verificar visibilidade dos elementos
-            function checkVisibility() {
-                const skills = document.querySelectorAll('.skill');
-                skills.forEach(skill => {
-                    const rect = skill.getBoundingClientRect();
-                    if (rect.top < window.innerHeight && rect.bottom >= 0) {
-                        skill.classList.add('visible');
-                    }
-                });
-            }
-
-            // Jogo Simples
-            const canvas = document.getElementById('gameCanvas');
-            const ctx = canvas.getContext('2d');
-
-            let x = canvas.width / 2;
-            let y = canvas.height - 30;
-            let dx = 2;
-            let dy = -2;
-            const ballRadius = 10;
-
-            function drawBall() {
-                ctx.beginPath();
-                ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-                ctx.fillStyle = '#0f0';
-                ctx.fill();
-                ctx.closePath();
-            }
-
-            function draw() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                drawBall();
-
-                if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-                    dx = -dx;
-                }
-                if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
-                    dy = -dy;
-                }
-
-                x += dx;
-                y += dy;
-                requestAnimationFrame(draw);
-            }
-
-            draw();
-
-            // Evento de rolagem da página
-            window.addEventListener('scroll', checkVisibility);
-        }
-
-        // Inicia a animação de saudações ao carregar a página
-        window.onload = startAnimation;
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>
