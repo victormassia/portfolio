@@ -17,6 +17,9 @@
             --primary-color: #007bff;
             --secondary-color: #6c757d;
             --accent-color: #ff4081;
+            --terminal-bg-color: #000;
+            --terminal-text-color: #0f0;
+            --terminal-border-color: #00ff00;
         }
 
         body {
@@ -45,6 +48,85 @@
 
         #main-content {
             display: none;
+        }
+
+        /* Estilos para a seção "Sobre Mim" */
+        .about-section {
+            background-color: #fff8e1;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .about-section p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-section p i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Estilos para a seção terminal */
+        .terminal {
+            width: 80%;
+            max-width: 800px;
+            height: 400px;
+            background-color: var(--terminal-bg-color);
+            color: var(--terminal-text-color);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid var(--terminal-border-color);
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--terminal-bg-color);
+            padding: 5px 10px;
+            border-bottom: 2px solid var(--terminal-border-color);
+        }
+
+        .terminal-header .buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .terminal-header .buttons .button {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--terminal-border-color);
+        }
+
+        .terminal-content {
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .terminal-input {
+            width: 100%;
+            border: none;
+            background: none;
+            color: var(--terminal-text-color);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1em;
+            outline: none;
         }
 
         /* Restante dos seus estilos */
@@ -96,16 +178,43 @@
     <!-- Animação de saudações -->
     <div id="greeting">Olá</div>
     <div id="main-content" class="scroll-container" style="display: none;">
-        <!-- Seu conteúdo principal -->
+        <!-- Seção inicial -->
         <section class="section" style="background-color: #f3f3f3;">
             <div class="name">Victor Massia</div>
             <div class="description">Estudante de Sistemas de Informação</div>
         </section>
+
+        <!-- Seção "Sobre Mim" -->
+        <section class="section about-section">
+            <h2>Sobre Mim</h2>
+            <p>
+                <i class="fas fa-rocket"></i> 🧑‍🚀 Entusiasta da tecnologia, focado em resolver problemas reais com soluções eficientes.
+            </p>
+            <p>
+                <i class="fas fa-graduation-cap"></i> 🧑🏻‍🎓 Estudante de Sistemas de Informação, explorando programação, dados e segurança da informação.
+            </p>
+            <p>
+                <i class="fas fa-laptop-code"></i> 👨🏻‍💻 Gosto de entender sistemas, otimizar processos e criar soluções funcionais.
+            </p>
+            <p>
+                <i class="fas fa-space-shuttle"></i> 🚀 Sempre buscando aprender e aplicar novos conhecimentos na prática.
+            </p>
+        </section>
+
+        <!-- Restante das seções -->
         <section class="section" style="background-color: #e3f2fd;">
             <div id="timeline-embed"></div>
         </section>
         <section class="section" style="background-color: #d1c4e9;">
             <div class="terminal">
+                <div class="terminal-header">
+                    <div class="buttons">
+                        <div class="button"></div>
+                        <div class="button"></div>
+                        <div class="button"></div>
+                    </div>
+                    <div class="title">Terminal</div>
+                </div>
                 <div class="terminal-content" id="terminal-content">
                     <div>Bem-vindo ao terminal de Victor Massia. Digite 'help' para ver os comandos disponíveis.</div>
                 </div>
